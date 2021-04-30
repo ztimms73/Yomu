@@ -20,8 +20,4 @@
         <item name="android:transitionName">@string/transition_fab</item>
     </style>
 
-    <style name="Theme.Yomu.Notification" parent="@android:style/TextAppearance.Material.Notification" />
-
-    <style name="Theme.Yomu.Notification.Title" parent="@android:style/TextAppearance.Material.Notification.Title" />
-
 </resources>

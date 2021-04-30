@@ -124,7 +124,6 @@ public class BugReportActivity extends AbsThemeActivity {
         final int primaryColor = ThemeStore.primaryColor(this);
         toolbar.setBackgroundColor(primaryColor);
         setSupportActionBar(toolbar);
-        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TintHelper.setTintAuto(optionUseAccount, accentColor, false);

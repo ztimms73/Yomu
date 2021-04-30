@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.android.material.navigation.NavigationView;
 import com.kabouzeid.appthemehelper.ThemeStore;
@@ -60,15 +59,13 @@ public class MainActivity extends AbsBaseActivity {
 
     private void setChooser(int key) {
         PreferenceUtil.getInstance(this).setLastChooser(key);
-        switch (key) {
-            case LIBRARY:
-                navigationView.setCheckedItem(R.id.nav_library);
-                setCurrentFragment(LibraryFragment.newInstance());
-                break;
+        if (key == LIBRARY) {
+            navigationView.setCheckedItem(R.id.nav_library);
+            setCurrentFragment(LibraryFragment.newInstance());
         }
     }
 
-    private void setCurrentFragment(@SuppressWarnings("NullableProblems") Fragment fragment) {
+    private void setCurrentFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment, null).commit();
         currentFragment = fragment;
     }

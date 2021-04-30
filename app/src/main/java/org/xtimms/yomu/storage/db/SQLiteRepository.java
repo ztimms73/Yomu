@@ -62,8 +62,7 @@ abstract class SQLiteRepository<T> implements Repository<T> {
         } catch (Exception ignored) {
         }
         try {
-            if(database.update(getTableName(), cv,"id=?", new String[]{String.valueOf(getId(t))}) > 0) {
-            }
+            database.update(getTableName(), cv, "id=?", new String[]{String.valueOf(getId(t))});
         } catch (Exception ignored) {
         }
     }
@@ -79,8 +78,7 @@ abstract class SQLiteRepository<T> implements Repository<T> {
         } catch (Exception ignored) {
         }
         try {
-            if(database.insert(getTableName(), null, cv) >= 0) {
-            }
+            database.insert(getTableName(), null, cv);
         } catch (Exception ignored) {
         }
     }

@@ -1,11 +1,8 @@
 package org.xtimms.yomu.ui.base;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 
 public abstract class AbsBaseActivity extends AbsThemeActivity {

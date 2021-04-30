@@ -7,10 +7,6 @@
 
     <style name="Theme.Yomu.Black" parent="Theme.Yomu.Base.Black" />
 
-    <style name="Theme.Yomu.Notification" parent="@android:style/TextAppearance.StatusBar.EventContent" />
-
-    <style name="Theme.Yomu.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />
-
     <style name="Fab" parent="FabParent" />
 
     <style name="Toolbar">

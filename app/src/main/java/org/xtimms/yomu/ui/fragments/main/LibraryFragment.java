@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -58,7 +58,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements SharedPr
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         PreferenceUtil.getInstance(getActivity()).registerOnSharedPreferenceChangedListener(this);
         getMainActivity().setStatusbarColorAuto();
         getMainActivity().setNavigationbarColorAuto();
