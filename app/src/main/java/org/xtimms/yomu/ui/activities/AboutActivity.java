@@ -1,9 +1,11 @@
 package org.xtimms.yomu.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +29,6 @@ public class AboutActivity extends AbsBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
         setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
@@ -36,6 +37,13 @@ public class AboutActivity extends AbsBaseActivity {
         setTaskDescriptionColorAuto();
 
         setUpViews();
+    }
+
+    @Override
+    protected View createContentView() {
+        @SuppressLint("InflateParams")
+        View contentView = getLayoutInflater().inflate(R.layout.activity_about, null);
+        return contentView;
     }
 
     private void setUpViews() {

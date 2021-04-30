@@ -12,6 +12,8 @@ import org.xtimms.yomu.R;
 public class PreferenceUtil {
 
     public static final String GENERAL_THEME = "general_theme";
+    public static final String LAST_PAGE = "last_start_page";
+    public static final String LAST_CHOOSER = "last_chooser";
 
     private static PreferenceUtil sInstance;
 
@@ -58,6 +60,22 @@ public class PreferenceUtil {
             default:
                 return R.style.Theme_Yomu_Light;
         }
+    }
+
+    public void setLastPage(final int value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(LAST_PAGE, value);
+        editor.apply();
+    }
+
+    public void setLastChooser(final int value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(LAST_CHOOSER, value);
+        editor.apply();
+    }
+
+    public final int getLastChooser() {
+        return mPreferences.getInt(LAST_CHOOSER, 0);
     }
 
 }

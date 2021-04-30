@@ -1,5 +1,6 @@
 package org.xtimms.yomu.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,7 +36,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preferences);
         setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
@@ -54,6 +54,13 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             SettingsFragment frag = (SettingsFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
             if (frag != null) frag.invalidateSettings();
         }
+    }
+
+    @Override
+    protected View createContentView() {
+        @SuppressLint("InflateParams")
+        View contentView = getLayoutInflater().inflate(R.layout.activity_preferences, null);
+        return contentView;
     }
 
     @Override
