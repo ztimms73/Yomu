@@ -14,36 +14,24 @@
         android:layout_marginBottom="8dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_launcher_background"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:text="@string/app_name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="24dp"
+            android:text="@string/support_development"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="?android:textColorSecondary" />
 
         <LinearLayout
+            android:id="@+id/report_bugs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/rectSelector"
             android:clickable="true"
-            android:focusable="true"
             android:gravity="center_vertical"
             android:minHeight="@dimen/md_listitem_height"
             android:orientation="horizontal"
@@ -51,10 +39,10 @@
             android:paddingRight="16dp">
 
             <org.xtimms.yomu.views.IconImageView
-                android:id="@+id/icon_info"
+                android:id="@+id/icon_bug_report"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_info_white_24dp"
+                app:srcCompat="@drawable/ic_bug_report_white_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
@@ -69,16 +57,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/version"
+                    android:text="@string/report_bugs"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
                 <TextView
-                    android:id="@+id/app_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0.0.0 (0)"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    tools:ignore="HardcodedText" />
+                    android:text="@string/report_bugs_summary"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
             </LinearLayout>
 
         </LinearLayout>

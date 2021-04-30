@@ -4,6 +4,9 @@ import android.app.Application;
 
 import com.kabouzeid.appthemehelper.ThemeStore;
 
+import org.xtimms.yomu.misc.CrashHandler;
+import org.xtimms.yomu.misc.FileLogger;
+
 public class App extends Application {
 
     private static App app;
@@ -20,6 +23,10 @@ public class App extends Application {
                     .accentColorRes(R.color.md_pink_A400)
                     .commit();
         }
+
+        CrashHandler mCrashHandler = new CrashHandler(this);
+        Thread.setDefaultUncaughtExceptionHandler(mCrashHandler);
+        FileLogger.init(this);
     }
 
     public static App getInstance() {

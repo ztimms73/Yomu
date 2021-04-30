@@ -3,4 +3,7 @@
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="status_bar_padding">0dp</dimen>
     <dimen name="tab_height">48dp</dimen>
+
+    <!-- ONLY 0dp WHILE THERE IS THE BUG IN DESIGN SUPPORT LIBRARY 22.2.0-->
+    <dimen name="fab_margin_top_left_right">0dp</dimen>
 </resources>

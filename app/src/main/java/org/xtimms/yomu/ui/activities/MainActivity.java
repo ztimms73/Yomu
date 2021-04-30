@@ -91,13 +91,11 @@ public class MainActivity extends AbsBaseActivity {
 
         navigationView.setNavigationItemSelectedListener(menuItem -> {
             drawerLayout.closeDrawers();
-            switch (menuItem.getItemId()) {
-                case R.id.nav_settings:
-                    new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
-                    break;
-                case R.id.nav_about:
-                    new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
-                    break;
+            int id = menuItem.getItemId();
+            if (id == R.id.nav_settings) {
+                new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
+            } else if (id == R.id.nav_about) {
+                new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
             }
             return true;
         });
