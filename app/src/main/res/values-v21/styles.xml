@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Yomu" parent="Theme.Yomu.Base">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSharedElementsUseOverlay">false</item>
+    </style>
+
+    <style name="Theme.Yomu.Light" parent="Theme.Yomu.Base.Light">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSharedElementsUseOverlay">false</item>
+    </style>
+
+    <style name="Theme.Yomu.Black" parent="Theme.Yomu.Base.Black">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSharedElementsUseOverlay">false</item>
+    </style>
+
+    <style name="Theme.Yomu.Notification" parent="@android:style/TextAppearance.Material.Notification" />
+
+    <style name="Theme.Yomu.Notification.Title" parent="@android:style/TextAppearance.Material.Notification.Title" />
+
+</resources>

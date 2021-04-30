@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Yomu</string>
+    <string name="pref_header_colors">Colors</string>
+    <string name="pref_title_general_theme">General theme</string>
+    <string name="light_theme_name">Light</string>
+    <string name="dark_theme_name">Dark</string>
+    <string name="black_theme_name">Black (AMOLED)</string>
+    <string name="primary_color">Primary color</string>
+    <string name="primary_color_desc">The primary theme color, defaults to indigo.</string>
+    <string name="accent_color">Accent color</string>
+    <string name="accent_color_desc">The accent theme color, defaults to pink.</string>
+    <string name="pref_summary_colored_navigation_bar">Colors the navigation bar in the primary color.</string>
+    <string name="pref_title_navigation_bar">Colored navigation bar</string>
+    <string name="pref_title_app_shortcuts">Colored app shortcuts</string>
+    <string name="pref_summary_colored_app_shortcuts">Colors the app shortcuts in the primary color.</string>
+    <string name="action_settings">Settings</string>
+    <string name="version">Version</string>
+    <string name="action_about">About</string>
 </resources>
