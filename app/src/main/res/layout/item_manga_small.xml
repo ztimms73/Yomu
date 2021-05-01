@@ -5,7 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:foreground="?selectableItemBackground"
     android:layout_height="wrap_content"
-    app:cardElevation="2dp">
+    app:cardElevation="2dp"
+    app:cardPreventCornerOverlap="false"
+    android:layout_marginTop="@dimen/fix_cardview"
+    android:layout_marginBottom="@dimen/fix_cardview"
+    android:layout_marginRight="@dimen/fix_cardview"
+    android:layout_marginLeft="@dimen/fix_cardview">
 
     <RelativeLayout
         android:layout_width="match_parent"

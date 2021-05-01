@@ -38,7 +38,7 @@ public class ImageUtil {
             ImageLoader.getInstance().init(config);
         }
         if (mOptionsThumb == null) {
-            Drawable holder = ContextCompat.getDrawable(context, R.drawable.ic_bug_report_white_24dp);
+            Drawable holder = ContextCompat.getDrawable(context, R.drawable.placeholder);
             mOptionsThumb = getImageLoaderOptionsBuilder()
                     .showImageOnLoading(holder)
                     .build();
