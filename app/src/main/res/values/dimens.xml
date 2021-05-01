@@ -6,4 +6,6 @@
 
     <!-- ONLY 0dp WHILE THERE IS THE BUG IN DESIGN SUPPORT LIBRARY 22.2.0-->
     <dimen name="fab_margin_top_left_right">0dp</dimen>
+
+    <dimen name="empty_text_size">20sp</dimen>
 </resources>

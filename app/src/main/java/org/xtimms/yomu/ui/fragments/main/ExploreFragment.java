@@ -9,10 +9,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.tabs.TabLayout;
 import com.kabouzeid.appthemehelper.ThemeStore;
 
 import org.xtimms.yomu.R;
@@ -22,29 +21,27 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class LibraryFragment extends AbsMainActivityFragment implements SharedPreferences.OnSharedPreferenceChangeListener, ViewPager.OnPageChangeListener {
+public class ExploreFragment extends AbsMainActivityFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private Unbinder unbinder;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.tabs)
-    TabLayout tabs;
     @BindView(R.id.appbar)
     AppBarLayout appbar;
-    @BindView(R.id.pager)
-    ViewPager pager;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
-    public static LibraryFragment newInstance() {
-        return new LibraryFragment();
+    public static ExploreFragment newInstance() {
+        return new ExploreFragment();
     }
 
-    public LibraryFragment() {
+    public ExploreFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_library, container, false);
+        View view = inflater.inflate(R.layout.fragment_explore, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -53,7 +50,6 @@ public class LibraryFragment extends AbsMainActivityFragment implements SharedPr
     public void onDestroyView() {
         PreferenceUtil.getInstance(getActivity()).unregisterOnSharedPreferenceChangedListener(this);
         super.onDestroyView();
-        pager.removeOnPageChangeListener(this);
         unbinder.unbind();
     }
 
@@ -72,27 +68,12 @@ public class LibraryFragment extends AbsMainActivityFragment implements SharedPr
         appbar.setBackgroundColor(primaryColor);
         toolbar.setBackgroundColor(primaryColor);
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
-        getActivity().setTitle(R.string.app_name);
+        getActivity().setTitle(R.string.explore);
         getMainActivity().setSupportActionBar(toolbar);
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        PreferenceUtil.getInstance(getActivity()).setLastPage(position);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
 
     }
 }

@@ -48,7 +48,13 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
     implementation 'com.afollestad:material-cab:0.1.12'
     implementation 'com.github.ksoichiro:android-observablescrollview:1.6.0'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
+    implementation 'com.squareup.okhttp3:okhttp:4.8.1'
+    implementation 'info.guardianproject.netcipher:netcipher:2.0.0-beta1'
+    implementation 'info.guardianproject.netcipher:netcipher-okhttp3:2.0.0-alpha1'
+    implementation 'org.jsoup:jsoup:1.12.1'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 

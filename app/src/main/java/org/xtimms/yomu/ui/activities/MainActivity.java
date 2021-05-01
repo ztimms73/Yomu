@@ -19,16 +19,20 @@ import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
 
 import org.xtimms.yomu.R;
+import org.xtimms.yomu.listeners.OnTipsActionListener;
+import org.xtimms.yomu.misc.FlagsStorage;
 import org.xtimms.yomu.ui.base.AbsBaseActivity;
-import org.xtimms.yomu.ui.fragments.main.LibraryFragment;
+import org.xtimms.yomu.ui.fragments.main.ExploreFragment;
+import org.xtimms.yomu.ui.fragments.main.library.LibraryFragment;
 import org.xtimms.yomu.util.PreferenceUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AbsBaseActivity {
+public class MainActivity extends AbsBaseActivity implements OnTipsActionListener {
 
     private static final int LIBRARY = 0;
+    private static final int EXPLORE = 1;
 
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
@@ -57,11 +61,27 @@ public class MainActivity extends AbsBaseActivity {
         }
     }
 
+    @Override
+    public void onTipActionClick(int actionId) {
+
+    }
+
+    @Override
+    public void onTipDismissed(int actionId) {
+
+    }
+
     private void setChooser(int key) {
         PreferenceUtil.getInstance(this).setLastChooser(key);
-        if (key == LIBRARY) {
-            navigationView.setCheckedItem(R.id.nav_library);
-            setCurrentFragment(LibraryFragment.newInstance());
+        switch (key) {
+            case LIBRARY:
+                navigationView.setCheckedItem(R.id.nav_library);
+                setCurrentFragment(LibraryFragment.newInstance());
+                break;
+            case EXPLORE:
+                navigationView.setCheckedItem(R.id.nav_explore);
+                setCurrentFragment(ExploreFragment.newInstance());
+                break;
         }
     }
 
@@ -89,7 +109,11 @@ public class MainActivity extends AbsBaseActivity {
         navigationView.setNavigationItemSelectedListener(menuItem -> {
             drawerLayout.closeDrawers();
             int id = menuItem.getItemId();
-            if (id == R.id.nav_settings) {
+            if (id == R.id.nav_library) {
+                new Handler().postDelayed(() -> setChooser(LIBRARY), 200);
+            } else if (id == R.id.nav_explore) {
+                new Handler().postDelayed(() -> setChooser(EXPLORE), 200);
+            } else if (id == R.id.nav_settings) {
                 new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
             } else if (id == R.id.nav_about) {
                 new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);

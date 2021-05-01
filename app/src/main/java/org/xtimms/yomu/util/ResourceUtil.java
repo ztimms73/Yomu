@@ -1,7 +1,10 @@
 package org.xtimms.yomu.util;
 
+import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.text.format.DateUtils;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RawRes;
 
 import java.io.ByteArrayOutputStream;
@@ -34,6 +37,20 @@ public class ResourceUtil {
                 e.printStackTrace();
             }
         }
+    }
+
+    @NonNull
+    public static String formatTimeRelative(long time) {
+        return DateUtils.getRelativeTimeSpanString(time, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+    }
+
+    public static boolean isTablet(Configuration configuration) {
+        return configuration.smallestScreenWidthDp >= 600;
+    }
+
+    public static int dpToPx(Resources resources, float dp) {
+        float density = resources.getDisplayMetrics().density;
+        return (int) (dp * density);
     }
 
 }

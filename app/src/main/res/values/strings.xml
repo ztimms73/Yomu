@@ -49,4 +49,14 @@
     <string name="loading_error">Loading Error</string>
     <string name="explore">Explore</string>
     <string name="downloads">Downloads</string>
+    <string name="empty">Empty</string>
+    <string name="favourites">Favourites</string>
+    <string name="more">More</string>
+    <string name="_continue">Continue</string>
+    <string name="no_thanks">No, thanks</string>
+    <string name="saved_manga">Saved manga</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="action_history">History</string>
+    <string name="library_is_empty">Library is empty</string>
+    <string name="nothing_here_yet">Nothing here yet</string>
 </resources>
