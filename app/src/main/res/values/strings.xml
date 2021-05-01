@@ -59,4 +59,16 @@
     <string name="action_history">History</string>
     <string name="library_is_empty">Library is empty</string>
     <string name="nothing_here_yet">Nothing here yet</string>
+    <string name="retry">Retry</string>
+    <string name="action_search">Search</string>
+    <string name="view_mode">View mode</string>
+    <string name="view_mode_list">List</string>
+    <string name="view_mode_grid_small">Small</string>
+    <string name="view_mode_grid_medium">Medium</string>
+    <string name="view_mode_grid_large">Large</string>
+    <string name="authorization">Authorization</string>
+    <string name="status_ongoing">Ongoing</string>
+    <string name="status_completed">Completed</string>
+    <string name="status_licensed">Licensed</string>
+    <string name="storage_remote">Remote storages</string>
 </resources>

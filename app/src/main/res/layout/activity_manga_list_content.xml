@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <org.xtimms.yomu.views.InfiniteRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:clipToPadding="false" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_gravity="center"
+        style="?android:progressBarStyleLarge"/>
+
+    <ViewStub
+        android:id="@+id/stub_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/recyclerView"
+        app:layout_behavior="@string/center_gravity_behavior"
+        app:layout_anchorGravity="center"
+        android:layout="@layout/view_error" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabFilter"
+        style="@style/Fab"
+        android:layout_gravity="bottom|end"
+        app:srcCompat="@drawable/ic_filter_list_white_24dp"
+        app:layout_behavior="@string/scroll_aware_behavior"/>
+
+</FrameLayout>

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="center_gravity_behavior" translatable="false">org.xtimms.yomu.misc.CenterGravityBehavior</string>
+    <string name="scroll_aware_behavior" translatable="false">org.xtimms.yomu.misc.ScrollAwareFABBehavior</string>
     <string name="transition_fab">fab_transition</string>
 </resources>

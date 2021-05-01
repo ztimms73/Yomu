@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,9 +16,8 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.kabouzeid.appthemehelper.ThemeStore;
 
 import org.xtimms.yomu.R;
-import org.xtimms.yomu.interfaces.SpecificCName;
+import org.xtimms.yomu.adapter.explore.ExploreAdapter;
 import org.xtimms.yomu.misc.HeaderDividerItemDecoration;
-import org.xtimms.yomu.models.ProviderHeaderDetailed;
 import org.xtimms.yomu.source.ProvidersStore;
 import org.xtimms.yomu.ui.fragments.main.AbsMainActivityFragment;
 import org.xtimms.yomu.util.PreferenceUtil;
@@ -87,6 +85,7 @@ public class ExploreFragment extends AbsMainActivityFragment implements SharedPr
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         final ArrayList<Object> dataset = new ArrayList<>();
+        dataset.add(getString(R.string.storage_remote));
         dataset.addAll(new ProvidersStore(getActivity()).getUserProviders());
         final ExploreAdapter adapter = new ExploreAdapter(dataset);
         recyclerView.setAdapter(adapter);

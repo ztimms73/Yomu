@@ -1,6 +1,7 @@
-package org.xtimms.yomu.ui.fragments.main.explore;
+package org.xtimms.yomu.adapter.explore;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,13 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.lucasurbas.listitemview.ListItemView;
 
 import org.xtimms.yomu.R;
 import org.xtimms.yomu.models.ProviderHeader;
 import org.xtimms.yomu.models.ProviderHeaderDetailed;
+import org.xtimms.yomu.ui.activities.mangalist.MangaListActivity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -61,6 +64,7 @@ public final  class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             holder.itemView.setTag(item.cName);
             ((ProviderHolder) holder).text1.setText(item.dName);
         } else if (holder instanceof HeaderHolder) {
+
             ((HeaderHolder) holder).textView.setText((String) mDataset.get(position));
         }
     }
@@ -89,6 +93,8 @@ public final  class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onClick(View view) {
         final String cname = String.valueOf(view.getTag());
         final Context context = view.getContext();
+        context.startActivity(new Intent(context.getApplicationContext(), MangaListActivity.class)
+                .putExtra("provider.cname", cname));
     }
 
     static class ProviderHolder extends RecyclerView.ViewHolder {
@@ -117,7 +123,9 @@ public final  class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         public HeaderHolder(View itemView) {
             super(itemView);
+            int accentColor = ThemeStore.accentColor(itemView.getContext());
             textView = itemView.findViewById(R.id.textView);
+            textView.setTextColor(accentColor);
         }
     }
 

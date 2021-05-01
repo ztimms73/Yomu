@@ -1,6 +1,7 @@
 package org.xtimms.yomu.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
@@ -13,6 +14,8 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.xtimms.yomu.BuildConfig;
+import org.xtimms.yomu.misc.CloudflareInterceptor;
+import org.xtimms.yomu.misc.CookieStore;
 import org.xtimms.yomu.misc.FileLogger;
 import org.xtimms.yomu.misc.SSLSocketFactoryExtended;
 
@@ -26,6 +29,8 @@ import java.util.concurrent.TimeUnit;
 import javax.net.ssl.HttpsURLConnection;
 
 import info.guardianproject.netcipher.NetCipher;
+import info.guardianproject.netcipher.client.StrongOkHttpClientBuilder;
+import info.guardianproject.netcipher.proxy.OrbotHelper;
 import okhttp3.CacheControl;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
@@ -51,6 +56,29 @@ public class NetworkUtil {
             .build();
 
     private static OkHttpClient sHttpClient = null;
+
+    @NonNull
+    private static OkHttpClient.Builder getClientBuilder() {
+        return new OkHttpClient.Builder()
+                /*.connectTimeout(1, TimeUnit.SECONDS)
+                .readTimeout(1, TimeUnit.SECONDS)*/
+                .addInterceptor(CookieStore.getInstance())
+                .addInterceptor(new CloudflareInterceptor());
+    }
+
+    public static void init(Context context, boolean useTor) {
+        OkHttpClient.Builder builder = getClientBuilder();
+        if (useTor && OrbotHelper.get(context).init()) {
+            try {
+                StrongOkHttpClientBuilder.forMaxSecurity(context)
+                        .applyTo(builder, new Intent()
+                                .putExtra(OrbotHelper.EXTRA_STATUS, "ON")); //TODO wtf
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        sHttpClient = builder.build();
+    }
 
     public static Document httpGet(@NonNull String url, @Nullable String cookie) throws IOException, KeyManagementException, NoSuchAlgorithmException {
         SSLSocketFactoryExtended factory = null;
