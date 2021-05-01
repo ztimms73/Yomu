@@ -8,6 +8,14 @@
             android:id="@+id/nav_library"
             android:icon="@drawable/ic_local_library_white_24dp"
             android:title="@string/library" />
+        <item
+            android:id="@+id/nav_explore"
+            android:icon="@drawable/ic_explore_white_24dp"
+            android:title="@string/explore" />
+        <item
+            android:id="@+id/nav_downloads"
+            android:icon="@drawable/ic_download_white_24dp"
+            android:title="@string/downloads" />
     </group>
 
     <group

@@ -12,4 +12,18 @@
     <attr name="iconColor" format="color" />
     <attr name="dividerColor" format="color" />
 
+    <attr name="selectable_library_drawable" format="reference|integer"/>
+
+    <!-- Define the values for the attribute -->
+    <attr name="typeface" format="enum">
+        <enum name="ptsansNarrow" value="0"/>
+        <enum name="ptsansNarrowBold" value="1"/>
+    </attr>
+
+    <!-- Tell Android that the class "CustomButton" can be styled,
+         and which attributes it supports -->
+    <declare-styleable name="PTSansTextView">
+        <attr name="typeface"/>
+    </declare-styleable>
+
 </resources>

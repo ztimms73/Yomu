@@ -18,4 +18,35 @@
         <item name="android:transitionName" tools:ignore="NewApi">toolbar</item>
     </style>
 
+    <!--===============-->
+    <!--Text Appearance-->
+    <!--===============-->
+    <style name="TextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Regular">
+        <item name="android:fontFamily">@string/font_roboto_regular</item>
+    </style>
+
+    <style name="TextAppearance.Regular.Body1">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.Regular.Body1.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Regular.Body1.Light">
+        <item name="android:textColor">@color/textColorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.Regular.Caption">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.Regular.Caption.Light">
+        <item name="android:textColor">@color/textColorPrimaryDark</item>
+    </style>
+
 </resources>
