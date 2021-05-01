@@ -1,6 +1,7 @@
 package org.xtimms.yomu.adapter.mangalist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import org.xtimms.yomu.annotations.MangaStatus;
 import org.xtimms.yomu.misc.PagedList;
 import org.xtimms.yomu.misc.ThumbSize;
 import org.xtimms.yomu.models.MangaHeader;
+import org.xtimms.yomu.ui.activities.preview.PreviewActivity;
 import org.xtimms.yomu.util.ImageUtil;
 
 public class MangaListAdapter extends InfiniteAdapter<MangaHeader, MangaListAdapter.MangaViewHolder> {
@@ -184,6 +186,8 @@ public class MangaListAdapter extends InfiniteAdapter<MangaHeader, MangaListAdap
         public void onClick(View v) {
             MangaHeader mangaHeader = getData();
             Context context = v.getContext();
+            context.startActivity(new Intent(context.getApplicationContext(), PreviewActivity.class)
+                    .putExtra("manga", mangaHeader));
         }
 
         @Override

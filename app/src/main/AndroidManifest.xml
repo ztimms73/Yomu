@@ -21,7 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.mangalist.MangaListActivity"/>
+        <activity android:name=".ui.activities.mangalist.MangaListActivity" />
+        <activity android:name=".ui.activities.preview.PreviewActivity">
+            <intent-filter>
+                <action android:name="org.xtimms.yomu.ACTION_PREVIEW" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:label="@string/action_settings" />

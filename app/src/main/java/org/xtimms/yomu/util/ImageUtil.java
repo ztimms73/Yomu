@@ -1,6 +1,7 @@
 package org.xtimms.yomu.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.palette.graphics.Palette;
 
 import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -94,6 +96,20 @@ public class ImageUtil {
                 null,
                 null
         );
+    }
+
+    public static void updateImage(@NonNull ImageView imageView, String url, String referer) {
+        ImageLoader.getInstance().displayImage(
+                fixUrl(url),
+                imageView,
+                mOptionsUpdate
+        );
+    }
+
+    @Nullable
+    public static Palette generatePalette(Bitmap bitmap) {
+        if (bitmap == null) return null;
+        return Palette.from(bitmap).generate();
     }
 
 }
