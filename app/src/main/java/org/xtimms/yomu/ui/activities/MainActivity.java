@@ -20,9 +20,8 @@ import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
 
 import org.xtimms.yomu.R;
 import org.xtimms.yomu.listeners.OnTipsActionListener;
-import org.xtimms.yomu.misc.FlagsStorage;
 import org.xtimms.yomu.ui.base.AbsBaseActivity;
-import org.xtimms.yomu.ui.fragments.main.ExploreFragment;
+import org.xtimms.yomu.ui.fragments.main.explore.ExploreFragment;
 import org.xtimms.yomu.ui.fragments.main.library.LibraryFragment;
 import org.xtimms.yomu.util.PreferenceUtil;
 

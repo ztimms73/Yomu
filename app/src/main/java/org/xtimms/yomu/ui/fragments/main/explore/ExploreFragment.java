@@ -1,4 +1,4 @@
-package org.xtimms.yomu.ui.fragments.main;
+package org.xtimms.yomu.ui.fragments.main.explore;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,13 +9,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.kabouzeid.appthemehelper.ThemeStore;
 
 import org.xtimms.yomu.R;
+import org.xtimms.yomu.interfaces.SpecificCName;
+import org.xtimms.yomu.misc.HeaderDividerItemDecoration;
+import org.xtimms.yomu.models.ProviderHeaderDetailed;
+import org.xtimms.yomu.source.ProvidersStore;
+import org.xtimms.yomu.ui.fragments.main.AbsMainActivityFragment;
 import org.xtimms.yomu.util.PreferenceUtil;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,7 +69,27 @@ public class ExploreFragment extends AbsMainActivityFragment implements SharedPr
         getMainActivity().setNavigationbarColorAuto();
         getMainActivity().setTaskDescriptionColorAuto();
 
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.addItemDecoration(new HeaderDividerItemDecoration(view.getContext()));
+        recyclerView.setClipToPadding(false);
+        recyclerView.setPadding(
+                recyclerView.getPaddingLeft(),
+                recyclerView.getPaddingTop(),
+                recyclerView.getPaddingRight(),
+                recyclerView.getPaddingBottom()
+        );
+
         setUpToolbar();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        final ArrayList<Object> dataset = new ArrayList<>();
+        dataset.addAll(new ProvidersStore(getActivity()).getUserProviders());
+        final ExploreAdapter adapter = new ExploreAdapter(dataset);
+        recyclerView.setAdapter(adapter);
     }
 
     private void setUpToolbar() {

@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "org.xtimms.yomu"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -49,6 +49,7 @@ dependencies {
     implementation 'com.afollestad:material-cab:0.1.12'
     implementation 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.lucasurbas:listitemview:1.1.1'
 
     implementation 'com.squareup.okhttp3:okhttp:4.8.1'
     implementation 'info.guardianproject.netcipher:netcipher:2.0.0-beta1'
