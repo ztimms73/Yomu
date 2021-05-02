@@ -2,16 +2,19 @@ package org.xtimms.yomu.ui.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.kabouzeid.appthemehelper.ThemeStore;
@@ -20,6 +23,7 @@ import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
 
 import org.xtimms.yomu.R;
 import org.xtimms.yomu.listeners.OnTipsActionListener;
+import org.xtimms.yomu.misc.UpdateHelper;
 import org.xtimms.yomu.ui.base.AbsBaseActivity;
 import org.xtimms.yomu.ui.fragments.main.explore.ExploreFragment;
 import org.xtimms.yomu.ui.fragments.main.library.LibraryFragment;
@@ -28,7 +32,7 @@ import org.xtimms.yomu.util.PreferenceUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AbsBaseActivity implements OnTipsActionListener {
+public class MainActivity extends AbsBaseActivity implements OnTipsActionListener, UpdateHelper.OnUpdateCheckListener {
 
     private static final int LIBRARY = 0;
     private static final int EXPLORE = 1;
@@ -54,10 +58,17 @@ public class MainActivity extends AbsBaseActivity implements OnTipsActionListene
         setUpDrawerLayout();
 
         if (savedInstanceState == null) {
-            setChooser(PreferenceUtil.getInstance(this).getLastChooser());
+            if (PreferenceUtil.getInstance(this).rememberLastPage()) {
+                setChooser(PreferenceUtil.getInstance(this).getLastChooser());
+            } else {
+                setChooser(LIBRARY);
+            }
         } else {
             restoreCurrentFragment();
         }
+
+        UpdateHelper.with(this).onUpdateCheck(this).check();
+
     }
 
     @Override
@@ -138,4 +149,22 @@ public class MainActivity extends AbsBaseActivity implements OnTipsActionListene
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onUpdateCheckListener(String urlApp) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("New version")
+                .setMessage("Update plz o_O")
+                .setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this, "" + urlApp, Toast.LENGTH_SHORT).show();
+                    }
+                }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create();
+        alertDialog.show();
+    }
 }

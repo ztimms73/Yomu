@@ -2,14 +2,23 @@ package org.xtimms.yomu;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.kabouzeid.appthemehelper.ThemeStore;
 
 import org.xtimms.yomu.misc.AppSettings;
 import org.xtimms.yomu.misc.CookieStore;
 import org.xtimms.yomu.misc.CrashHandler;
 import org.xtimms.yomu.misc.FileLogger;
+import org.xtimms.yomu.misc.UpdateHelper;
 import org.xtimms.yomu.util.ImageUtil;
 import org.xtimms.yomu.util.NetworkUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class App extends Application {
 
@@ -20,6 +29,24 @@ public class App extends Application {
         super.onCreate();
         app = this;
         final AppSettings settings = AppSettings.get(this);
+
+        FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+
+        //Default value
+        Map<String, Object> defaultValue = new HashMap<>();
+        defaultValue.put(UpdateHelper.KEY_UPDATE_ENABLE, false);
+        defaultValue.put(UpdateHelper.KEY_UPDATE_VERSION, "1.0");
+        defaultValue.put(UpdateHelper.KEY_UPDATE_URL, "https://github.com/SketchUpper/Yomu/releases");
+
+        remoteConfig.setDefaultsAsync(defaultValue);
+        remoteConfig.fetch(5).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    remoteConfig.fetchAndActivate();
+                }
+            }
+        });
 
         // default theme
         if (!ThemeStore.isConfigured(this, 1)) {
