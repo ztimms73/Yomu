@@ -92,4 +92,10 @@
     <string name="downloaded">Downloaded</string>
     <string name="no_chapters_found">No chapters found</string>
     <string name="failed_to_load_chapters">Failed to load chapters</string>
+    <string name="pref_header_general">General</string>
+    <string name="pref_title_remember_last_page">Remember last page</string>
+    <string name="pref_summary_remember_last_page">Go to the last opened page on launch</string>
+    <string name="updates_setting_title">Updates</string>
+    <string name="updates_setting_description">Show a notification to prompt app update when a new version is available</string>
+    <string name="pref_header_misc">Miscellaneous</string>
 </resources>

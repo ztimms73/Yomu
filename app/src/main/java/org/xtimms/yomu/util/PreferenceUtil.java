@@ -60,8 +60,8 @@ public class PreferenceUtil {
         editor.commit();
     }
 
-    public final boolean rememberLastTab() {
-        return mPreferences.getBoolean(REMEMBER_LAST_TAB, true);
+    public final boolean rememberLastPage() {
+        return mPreferences.getBoolean(LAST_PAGE, true);
     }
 
     @StyleRes
