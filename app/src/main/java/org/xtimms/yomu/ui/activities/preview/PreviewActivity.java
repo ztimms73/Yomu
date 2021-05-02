@@ -31,9 +31,12 @@ import org.xtimms.yomu.adapter.PagesAdapter;
 import org.xtimms.yomu.loader.MangaDetailsLoader;
 import org.xtimms.yomu.misc.ObjectWrapper;
 import org.xtimms.yomu.models.MangaDetails;
+import org.xtimms.yomu.models.MangaFavourite;
 import org.xtimms.yomu.models.MangaHeader;
 import org.xtimms.yomu.models.MangaHistory;
 import org.xtimms.yomu.storage.db.FavouritesRepository;
+import org.xtimms.yomu.storage.db.HistoryRepository;
+import org.xtimms.yomu.ui.activities.preview.chapters.ChaptersPage;
 import org.xtimms.yomu.ui.activities.preview.details.DetailsPage;
 import org.xtimms.yomu.ui.base.AbsBaseActivity;
 
@@ -55,10 +58,12 @@ public final class PreviewActivity extends AbsBaseActivity implements LoaderMana
     TabLayout tabLayout;
     //tabs
     private DetailsPage mDetailsPage;
+    private ChaptersPage mChaptersPage;
     //data
     private MangaHeader mMangaHeader;
     @Nullable
     private MangaDetails mMangaDetails;
+    private HistoryRepository mHistory;
     private FavouritesRepository mFavourites;
     private BroadcastReceiver mDownloadsReceiver;
 
@@ -92,8 +97,9 @@ public final class PreviewActivity extends AbsBaseActivity implements LoaderMana
         mMangaHeader = getIntent().getParcelableExtra("manga");
         mMangaDetails = null;
         assert mMangaHeader != null;
-        mFavourites = FavouritesRepository.get(this);
 
+        mFavourites = FavouritesRepository.get(this);
+        mHistory = HistoryRepository.get(this);
 
         mDetailsPage.updateContent(mMangaHeader, mMangaDetails);
 
@@ -107,7 +113,8 @@ public final class PreviewActivity extends AbsBaseActivity implements LoaderMana
         int accentColor = ThemeStore.accentColor(this);
 
         final PagesAdapter adapter = new PagesAdapter(
-                mDetailsPage = new DetailsPage(pager)
+                mDetailsPage = new DetailsPage(pager),
+                mChaptersPage = new ChaptersPage(pager)
         );
 
         progressBar.getIndeterminateDrawable().setColorFilter(accentColor, PorterDuff.Mode.MULTIPLY);
@@ -195,8 +202,11 @@ public final class PreviewActivity extends AbsBaseActivity implements LoaderMana
             assert mMangaDetails != null;
             toolbar.setTitle(mMangaDetails.name);
             toolbar.setSubtitle(mMangaDetails.summary);
+            final MangaHistory history = mHistory.find(mMangaHeader);
             mDetailsPage.updateContent(mMangaHeader, mMangaDetails);
+            mChaptersPage.setData(mMangaDetails.chapters, history, null);
         } else {
+            mChaptersPage.setError();
             mDetailsPage.setError(data.getError());
         }
     }

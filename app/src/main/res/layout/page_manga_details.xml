@@ -41,12 +41,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="ContentDescription" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="88dp"
-            android:background="@drawable/gradient_shape"
-            app:layout_constraintBottom_toBottomOf="@id/backdrop" />
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cover_card"
             android:layout_width="0dp"

@@ -89,4 +89,7 @@
     <string name="chapters_count_">Chapters count:</string>
     <string name="source_">Source:</string>
     <string name="status_">Status:</string>
+    <string name="downloaded">Downloaded</string>
+    <string name="no_chapters_found">No chapters found</string>
+    <string name="failed_to_load_chapters">Failed to load chapters</string>
 </resources>

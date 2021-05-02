@@ -14,4 +14,11 @@ public class AppHelper {
         return formatter.format(calendar.getTime());
     }
 
+    public static String getReadableDateTimeForChapters(long milliseconds) {
+        DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliseconds);
+        return formatter.format(calendar.getTime());
+    }
+
 }
