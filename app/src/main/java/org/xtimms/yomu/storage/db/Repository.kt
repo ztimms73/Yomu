@@ -1,19 +1,14 @@
-package org.xtimms.yomu.storage.db;
+package org.xtimms.yomu.storage.db
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import org.xtimms.yomu.storage.db.SQLSpecification
 
-import java.util.List;
+interface Repository<T> {
 
-public interface Repository<T> {
-
-    boolean add(@NonNull T t);
-    boolean remove(@NonNull T t);
-    boolean update(@NonNull T t);
-    void clear();
-    boolean contains(@NonNull T t);
-
-    @Nullable
-    List<T> query(@NonNull SQLSpecification specification);
+    fun add(t: T): Boolean
+    fun remove(t: T): Boolean
+    fun update(t: T): Boolean
+    fun clear()
+    operator fun contains(t: T): Boolean
+    fun query(specification: SQLSpecification): List<T>?
 
 }

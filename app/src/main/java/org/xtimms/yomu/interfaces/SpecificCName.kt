@@ -1,14 +1,13 @@
-package org.xtimms.yomu.interfaces;
+package org.xtimms.yomu.interfaces
 
-public interface SpecificCName {
+interface SpecificCName {
 
-    String BROWSE_IMPORT = "browse/import";
-
-    String BROWSE_SAVED = "browse/saved";
-
-    String BROWSE_RECOMMENDATIONS = "browse/recommendations";
-
-    String BROWSE_BOOKMARKS = "browse/bookmarks";
-
-    String BROWSE_NEW_CHAPTERS = "browse/newchapters";
+    companion object {
+        const val BROWSE_IMPORT = "browse/import"
+        const val BROWSE_SAVED = "browse/saved"
+        const val BROWSE_RECOMMENDATIONS = "browse/recommendations"
+        const val BROWSE_BOOKMARKS = "browse/bookmarks"
+        const val BROWSE_NEW_CHAPTERS = "browse/newchapters"
+    }
+    
 }

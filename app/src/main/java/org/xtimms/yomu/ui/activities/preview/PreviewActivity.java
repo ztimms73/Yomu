@@ -98,7 +98,7 @@ public final class PreviewActivity extends AbsBaseActivity implements LoaderMana
         mMangaDetails = null;
         assert mMangaHeader != null;
 
-        mFavourites = FavouritesRepository.get(this);
+        mFavourites = FavouritesRepository.Companion.get(this);
         mHistory = HistoryRepository.get(this);
 
         mDetailsPage.updateContent(mMangaHeader, mMangaDetails);

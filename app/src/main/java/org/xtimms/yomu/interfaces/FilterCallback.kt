@@ -1,9 +1,15 @@
-package org.xtimms.yomu.interfaces;
+package org.xtimms.yomu.interfaces
 
-import org.xtimms.yomu.models.MangaGenre;
-import org.xtimms.yomu.models.MangaType;
+import org.xtimms.yomu.models.MangaGenre
+import org.xtimms.yomu.models.MangaType
 
-public interface FilterCallback {
+interface FilterCallback {
 
-    void setFilter(int sort, int additionalSort, MangaGenre[] genres, MangaType[] types);
+    fun setFilter(
+        sort: Int,
+        additionalSort: Int,
+        genres: Array<MangaGenre?>?,
+        types: Array<MangaType?>?
+    )
+
 }

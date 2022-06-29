@@ -1,32 +1,29 @@
-package org.xtimms.yomu.models;
+package org.xtimms.yomu.models
 
-import android.content.Context;
+import android.content.Context
+import org.xtimms.yomu.R
 
-import androidx.annotation.NonNull;
+class Category {
 
-import org.xtimms.yomu.R;
+    val id: Int
+    val name: String
+    val createdAt: Long
 
-public class Category {
-
-    public final int id;
-    public final String name;
-    public final long createdAt;
-
-    public Category(int id, String name, long createdAt) {
-        this.id = id;
-        this.name = name;
-        this.createdAt = createdAt;
+    constructor(id: Int, name: String, createdAt: Long) {
+        this.id = id
+        this.name = name
+        this.createdAt = createdAt
     }
 
-    public Category(String name, long createdAt) {
-        this.id = name.hashCode();
-        this.name = name;
-        this.createdAt = createdAt;
+    constructor(name: String, createdAt: Long) {
+        id = name.hashCode()
+        this.name = name
+        this.createdAt = createdAt
     }
 
-    @NonNull
-    public static Category createDefault(Context context) {
-        return new Category(context.getString(R.string.favourites), System.currentTimeMillis());
+    companion object {
+        fun createDefault(context: Context): Category {
+            return Category(context.getString(R.string.favourites), System.currentTimeMillis())
+        }
     }
-
 }

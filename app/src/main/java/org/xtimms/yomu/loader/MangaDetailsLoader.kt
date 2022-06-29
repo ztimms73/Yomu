@@ -1,34 +1,25 @@
-package org.xtimms.yomu.loader;
+package org.xtimms.yomu.loader
 
-import android.content.Context;
+import android.content.Context
+import androidx.loader.content.AsyncTaskLoader
+import org.xtimms.yomu.misc.ObjectWrapper
+import org.xtimms.yomu.models.MangaHeader
+import org.xtimms.yomu.models.MangaDetails
+import org.xtimms.yomu.source.MangaProvider
+import java.lang.Exception
 
-import androidx.annotation.NonNull;
-import androidx.loader.content.AsyncTaskLoader;
+class MangaDetailsLoader(context: Context?, private val mManga: MangaHeader) :
+    AsyncTaskLoader<ObjectWrapper<MangaDetails>>(context!!) {
 
-import org.xtimms.yomu.misc.ObjectWrapper;
-import org.xtimms.yomu.models.MangaDetails;
-import org.xtimms.yomu.models.MangaHeader;
-import org.xtimms.yomu.source.MangaProvider;
-
-public final class MangaDetailsLoader extends AsyncTaskLoader<ObjectWrapper<MangaDetails>> {
-
-    private final MangaHeader mManga;
-
-    public MangaDetailsLoader(Context context, MangaHeader mangaHeader) {
-        super(context);
-        mManga = mangaHeader;
-    }
-
-    @Override
-    @NonNull
-    public ObjectWrapper<MangaDetails> loadInBackground() {
-        try {
-            final MangaProvider provider = MangaProvider.get(getContext(), mManga.provider);
-            final MangaDetails details = provider.getDetails(mManga);
-            return new ObjectWrapper<>(details);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ObjectWrapper<>(e);
+    override fun loadInBackground(): ObjectWrapper<MangaDetails> {
+        return try {
+            val provider = MangaProvider.get(context, mManga.provider)
+            val details = provider.getDetails(mManga)
+            ObjectWrapper(details)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ObjectWrapper(e)
         }
     }
+
 }

@@ -39,20 +39,20 @@ public class LibraryLoader extends AsyncTaskLoader<LibraryContent> {
         //tips
         //favourites
         if (settings.isFavouritesEnabled()) {
-            final CategoriesRepository categoriesRepository = CategoriesRepository.get(getContext());
+            final CategoriesRepository categoriesRepository = CategoriesRepository.Companion.get(getContext());
             ArrayList<Category> categories = categoriesRepository.query(new CategoriesSpecification().orderByDate(true));
             if (categories != null) {
                 if (categories.isEmpty()) {
-                    Category defaultCategory = Category.createDefault(getContext());
+                    Category defaultCategory = Category.Companion.createDefault(getContext());
                     categories.add(defaultCategory);
                     categoriesRepository.add(defaultCategory);
                     LibrarySettings.onCategoryAdded(getContext(), defaultCategory);
                 } else {
                     categories = settings.getEnabledCategories(categories);
-                    final FavouritesRepository favouritesRepository = FavouritesRepository.get(getContext());
+                    final FavouritesRepository favouritesRepository = FavouritesRepository.Companion.get(getContext());
                     for (Category category : categories) {
                         len = mColumnCount / 4 * settings.getMaxFavouritesRows();
-                        ArrayList<MangaFavourite> favourites = favouritesRepository.query(new FavouritesSpecification().orderByDate(true).category(category.id).limit(len));
+                        ArrayList<MangaFavourite> favourites = favouritesRepository.query(new FavouritesSpecification().orderByDate(true).category(category.getId()).limit(len));
                         if (favourites != null && !favourites.isEmpty()) {
                             content.favourites.put(category, favourites);
                         }

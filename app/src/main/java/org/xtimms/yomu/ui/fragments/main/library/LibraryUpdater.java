@@ -28,7 +28,7 @@ public class LibraryUpdater {
         for (Category category : content.favourites.keySet()) {
             List<MangaFavourite> favourites = content.favourites.get(category);
             if (favourites != null && !favourites.isEmpty()) {
-                dataset.add(new ListHeader(category.name, category.id));
+                dataset.add(new ListHeader(category.getName(), category.getId()));
                 dataset.addAll(favourites);
             }
         }

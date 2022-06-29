@@ -36,15 +36,12 @@ public class App extends Application {
         Map<String, Object> defaultValue = new HashMap<>();
         defaultValue.put(UpdateHelper.KEY_UPDATE_ENABLE, false);
         defaultValue.put(UpdateHelper.KEY_UPDATE_VERSION, "1.0");
-        defaultValue.put(UpdateHelper.KEY_UPDATE_URL, "https://github.com/SketchUpper/Yomu/releases");
+        defaultValue.put(UpdateHelper.KEY_UPDATE_URL, "https://github.com/ztimms73/Yomu/releases");
 
         remoteConfig.setDefaultsAsync(defaultValue);
-        remoteConfig.fetch(5).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    remoteConfig.fetchAndActivate();
-                }
+        remoteConfig.fetch(5).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                remoteConfig.fetchAndActivate();
             }
         });
 

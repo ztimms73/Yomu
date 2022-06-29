@@ -1,15 +1,8 @@
-package org.xtimms.yomu.annotations;
+package org.xtimms.yomu.annotations
 
-import androidx.annotation.StringDef;
+import androidx.annotation.StringDef
+import org.xtimms.yomu.source.Desu
 
-import org.xtimms.yomu.source.Desu;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-@Retention(RetentionPolicy.SOURCE)
-@StringDef({
-        Desu.CNAME
-})
-public @interface CName {
-}
+@Retention(AnnotationRetention.SOURCE)
+@StringDef(Desu.CNAME)
+annotation class CName 

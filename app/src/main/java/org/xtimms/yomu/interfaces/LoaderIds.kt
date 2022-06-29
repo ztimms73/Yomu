@@ -1,5 +1,9 @@
-package org.xtimms.yomu.interfaces;
+package org.xtimms.yomu.interfaces
 
-public interface LoaderIds {
-    int FAVOURITES_FRAGMENT = 1;
+interface LoaderIds {
+
+    companion object {
+        const val FAVOURITES_FRAGMENT = 1
+    }
+
 }

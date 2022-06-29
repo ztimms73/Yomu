@@ -1,77 +1,54 @@
-package org.xtimms.yomu.storage.db;
+package org.xtimms.yomu.storage.db
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
+import android.content.ContentValues
+import android.content.Context
+import android.database.Cursor
+import org.xtimms.yomu.models.Category
+import java.lang.ref.WeakReference
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+class CategoriesRepository private constructor(context: Context) : SQLiteRepository<Category?>(context) {
 
-import org.xtimms.yomu.models.Category;
+    override fun fromCursor(cursor: Cursor): Category {
+        return Category(
+            cursor.getInt(0),
+            cursor.getString(1),
+            cursor.getLong(2)
+        )
+    }
 
-import java.lang.ref.WeakReference;
+    override fun toContentValues(t: Category?, cv: ContentValues) {
+        cv.put(projection[0], t?.id)
+        cv.put(projection[1], t?.name)
+        cv.put(projection[2], t?.createdAt)
+    }
 
-public final class CategoriesRepository extends SQLiteRepository<Category> {
+    override val tableName: String = "categories"
 
-    private static final String TABLE_NAME = "categories";
-    private static final String[] PROJECTION = new String[]{
-            "id",                        //0
-            "name",                        //1
-            "created_at"                //2
-    };
+    override fun getId(t: Category?): Any {
+        return t?.id ?: -1
+    }
 
-    @Nullable
-    private static WeakReference<CategoriesRepository> sInstanceRef = null;
+    override val projection: Array<String?> = arrayOf(
+        "id",
+        "name",
+        "created_at"
+    )
 
-    @NonNull
-    public static CategoriesRepository get(Context context) {
-        CategoriesRepository instance = null;
-        if (sInstanceRef != null) {
-            instance = sInstanceRef.get();
+    companion object {
+
+        private var sInstanceRef: WeakReference<CategoriesRepository>? = null
+
+        operator fun get(context: Context): CategoriesRepository {
+            var instance: CategoriesRepository? = null
+            if (sInstanceRef != null) {
+                instance = sInstanceRef!!.get()
+            }
+            if (instance == null) {
+                instance = CategoriesRepository(context)
+                sInstanceRef = WeakReference(instance)
+            }
+            return instance
         }
-        if (instance == null) {
-            instance = new CategoriesRepository(context);
-            sInstanceRef = new WeakReference<>(instance);
-        }
-        return instance;
     }
 
-    private CategoriesRepository(Context context) {
-        super(context);
-    }
-
-    @Override
-    protected void toContentValues(@NonNull Category category, @NonNull ContentValues cv) {
-        cv.put(PROJECTION[0], category.id);
-        cv.put(PROJECTION[1], category.name);
-        cv.put(PROJECTION[2], category.createdAt);
-    }
-
-    @NonNull
-    @Override
-    protected String getTableName() {
-        return TABLE_NAME;
-    }
-
-    @NonNull
-    @Override
-    protected Object getId(@NonNull Category category) {
-        return category.id;
-    }
-
-    @NonNull
-    @Override
-    protected String[] getProjection() {
-        return PROJECTION;
-    }
-
-    @NonNull
-    @Override
-    protected Category fromCursor(@NonNull Cursor cursor) {
-        return new Category(
-                cursor.getInt(0),
-                cursor.getString(1),
-                cursor.getLong(2)
-        );
-    }
 }

@@ -45,7 +45,7 @@ public class LibrarySettings {
         }
         final ArrayList<Category> result = new ArrayList<>(enabledCats.size());
         for (Category o : allCategories) {
-            if (enabledCats.contains(String.valueOf(o.id))) {
+            if (enabledCats.contains(String.valueOf(o.getId()))) {
                 result.add(o);
             }
         }
@@ -65,7 +65,7 @@ public class LibrarySettings {
     public static void onCategoryAdded(Context context, Category category) {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         final Set<String> enabledCats = preferences.getStringSet("shelf.favourites_categories", new HashSet<>(1));
-        enabledCats.add(String.valueOf(category.id));
+        enabledCats.add(String.valueOf(category.getId()));
         preferences.edit().putStringSet("shelf.favourites_categories", enabledCats).apply();
     }
 }

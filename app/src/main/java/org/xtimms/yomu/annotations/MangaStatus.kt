@@ -1,16 +1,19 @@
-package org.xtimms.yomu.annotations;
+package org.xtimms.yomu.annotations
 
-import androidx.annotation.IntDef;
+import androidx.annotation.IntDef
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-@Retention(RetentionPolicy.SOURCE)
-@IntDef({MangaStatus.STATUS_UNKNOWN, MangaStatus.STATUS_COMPLETED, MangaStatus.STATUS_ONGOING, MangaStatus.STATUS_LICENSED})
-public @interface MangaStatus {
-
-    int STATUS_UNKNOWN = 0;
-    int STATUS_COMPLETED = 1;
-    int STATUS_ONGOING = 2;
-    int STATUS_LICENSED = 3;
+@Retention(AnnotationRetention.SOURCE)
+@IntDef(
+    MangaStatus.STATUS_UNKNOWN,
+    MangaStatus.STATUS_COMPLETED,
+    MangaStatus.STATUS_ONGOING,
+    MangaStatus.STATUS_LICENSED
+)
+annotation class MangaStatus {
+    companion object {
+        const val STATUS_UNKNOWN = 0
+        const val STATUS_COMPLETED = 1
+        const val STATUS_ONGOING = 2
+        const val STATUS_LICENSED = 3
+    }
 }

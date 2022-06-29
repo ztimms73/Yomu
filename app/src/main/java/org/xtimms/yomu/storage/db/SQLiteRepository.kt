@@ -1,159 +1,142 @@
-package org.xtimms.yomu.storage.db;
+package org.xtimms.yomu.storage.db
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.ContentValues
+import android.content.Context
+import android.database.Cursor
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+abstract class SQLiteRepository<T> protected constructor(context: Context?) : Repository<T> {
 
-import java.util.ArrayList;
+    protected val storageHelper: StorageHelper
 
-abstract class SQLiteRepository<T> implements Repository<T> {
-
-    protected final StorageHelper mStorageHelper;
-
-    protected SQLiteRepository(Context context) {
-        mStorageHelper = new StorageHelper(context);
-    }
-
-    @Override
-    public boolean add(@NonNull T t) {
-        try {
-            final ContentValues cv = new ContentValues(getProjection().length);
-            toContentValues(t, cv);
-            return mStorageHelper.getWritableDatabase()
-                    .insert(getTableName(), null, cv) >= 0;
-        } catch (Exception e) {
-            return false;
+    override fun add(t: T): Boolean {
+        return try {
+            val cv = ContentValues(projection.size)
+            toContentValues(t, cv)
+            storageHelper.writableDatabase
+                .insert(tableName, null, cv) >= 0
+        } catch (e: Exception) {
+            false
         }
     }
 
-    @Override
-    public boolean remove(@NonNull T t) {
-        return mStorageHelper.getWritableDatabase()
-                .delete(getTableName(), "id=?", new String[]{String.valueOf(getId(t))}) >= 0;
+    override fun remove(t: T): Boolean {
+        return storageHelper.writableDatabase
+            .delete(tableName, "id=?", arrayOf(getId(t).toString())) >= 0
     }
 
-    public void remove(long[] ids) {
-    }
-
-    @Override
-    public boolean update(@NonNull T t) {
-        try {
-            final ContentValues cv = new ContentValues(getProjection().length);
-            toContentValues(t, cv);
-            return mStorageHelper.getWritableDatabase().update(getTableName(), cv,
-                    "id=?", new String[]{String.valueOf(getId(t))}) > 0;
-        } catch (Exception e) {
-            return false;
+    open fun remove(ids: LongArray?) {}
+    override fun update(t: T): Boolean {
+        return try {
+            val cv = ContentValues(projection.size)
+            toContentValues(t, cv)
+            storageHelper.writableDatabase.update(
+                tableName, cv,
+                "id=?", arrayOf(getId(t).toString())
+            ) > 0
+        } catch (e: Exception) {
+            false
         }
     }
 
-    public void addOrUpdate(@NonNull T t) {
-        final ContentValues cv = new ContentValues(getProjection().length);
-        toContentValues(t, cv);
-        final SQLiteDatabase database = mStorageHelper.getWritableDatabase();
+    fun addOrUpdate(t: T) {
+        val cv = ContentValues(projection.size)
+        toContentValues(t, cv)
+        val database = storageHelper.writableDatabase
         try {
-            if(database.insert(getTableName(), null, cv) >= 0) {
-                return;
+            if (database.insert(tableName, null, cv) >= 0) {
+                return
             }
-        } catch (Exception ignored) {
+        } catch (ignored: Exception) {
         }
         try {
-            database.update(getTableName(), cv, "id=?", new String[]{String.valueOf(getId(t))});
-        } catch (Exception ignored) {
+            database.update(tableName, cv, "id=?", arrayOf(getId(t).toString()))
+        } catch (ignored: Exception) {
         }
     }
 
-    public void updateOrAdd(@NonNull T t) {
-        final ContentValues cv = new ContentValues(getProjection().length);
-        toContentValues(t, cv);
-        final SQLiteDatabase database = mStorageHelper.getWritableDatabase();
+    fun updateOrAdd(t: T) {
+        val cv = ContentValues(projection.size)
+        toContentValues(t, cv)
+        val database = storageHelper.writableDatabase
         try {
-            if(database.update(getTableName(), cv,"id=?", new String[]{String.valueOf(getId(t))}) > 0) {
-                return;
+            if (database.update(tableName, cv, "id=?", arrayOf(getId(t).toString())) > 0) {
+                return
             }
-        } catch (Exception ignored) {
+        } catch (ignored: Exception) {
         }
         try {
-            database.insert(getTableName(), null, cv);
-        } catch (Exception ignored) {
+            database.insert(tableName, null, cv)
+        } catch (ignored: Exception) {
         }
     }
 
-    @Override
-    public void clear() {
-        mStorageHelper.getWritableDatabase().delete(getTableName(), null, null);
+    override fun clear() {
+        storageHelper.writableDatabase.delete(tableName, null, null)
     }
 
-    @Override
-    public boolean contains(@NonNull T t) {
-        try (Cursor cursor = mStorageHelper.getReadableDatabase().rawQuery("SELECT * FROM " + getTableName() + " WHERE id = ?", new String[]{String.valueOf(getId(t))})) {
-            return cursor.getCount() > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+    override fun contains(t: T): Boolean {
+        try {
+            storageHelper.readableDatabase.rawQuery(
+                "SELECT * FROM $tableName WHERE id = ?",
+                arrayOf(getId(t).toString())
+            ).use { cursor -> return cursor.count > 0 }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
         }
     }
 
-    @Nullable
-    @Override
-    public ArrayList<T> query(@NonNull SQLSpecification specification) {
-        try (Cursor cursor = mStorageHelper.getReadableDatabase().query(
-                getTableName(),
-                getProjection(),
-                specification.getSelection(),
-                specification.getSelectionArgs(),
+    override fun query(specification: SQLSpecification): ArrayList<T>? {
+        try {
+            storageHelper.readableDatabase.query(
+                tableName,
+                projection,
+                specification.selection,
+                specification.selectionArgs,
                 null,
                 null,
-                specification.getOrderBy(),
-                specification.getLimit()
-        )) {
-            ArrayList<T> list = new ArrayList<>();
-            if (cursor.moveToFirst()) {
-                do {
-                    list.add(fromCursor(cursor));
-                } while (cursor.moveToNext());
+                specification.orderBy,
+                specification.limit
+            ).use { cursor ->
+                val list = ArrayList<T>()
+                if (cursor.moveToFirst()) {
+                    do {
+                        list.add(fromCursor(cursor))
+                    } while (cursor.moveToNext())
+                }
+                return list
             }
-            return list;
-        } catch (Exception e) {
-            return null;
+        } catch (e: Exception) {
+            return null
         }
     }
 
-    @Nullable
-    protected T findById(@NonNull Object id) {
-        try (Cursor cursor = mStorageHelper.getReadableDatabase().query(
-                getTableName(),
-                getProjection(),
-                "id = ?",
-                new String[]{String.valueOf(id)},
+    protected fun findById(id: Any): T? {
+        try {
+            storageHelper.readableDatabase.query(
+                tableName,
+                projection,
+                "id = ?", arrayOf(id.toString()),
                 null,
                 null,
                 null
-        )) {
-            if (cursor.moveToFirst()) {
-                return fromCursor(cursor);
+            ).use { cursor ->
+                return if (cursor.moveToFirst()) {
+                    fromCursor(cursor)
+                } else null
             }
-            return null;
-        } catch (Exception e) {
-            return null;
+        } catch (e: Exception) {
+            return null
         }
     }
 
-    protected abstract void toContentValues(@NonNull T t, @NonNull ContentValues cv);
+    protected abstract fun toContentValues(t: T, cv: ContentValues)
+    protected abstract val tableName: String
+    protected abstract fun getId(t: T): Any
+    protected abstract val projection: Array<String?>
+    protected abstract fun fromCursor(cursor: Cursor): T
 
-    @NonNull
-    protected abstract String getTableName();
-
-    @NonNull
-    protected abstract Object getId(@NonNull T t);
-
-    @NonNull
-    protected abstract String[] getProjection();
-
-    @NonNull
-    protected abstract T fromCursor(@NonNull Cursor cursor);
+    init {
+        storageHelper = StorageHelper(context)
+    }
 }

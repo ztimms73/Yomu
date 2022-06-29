@@ -122,7 +122,7 @@ public class HistoryRepository extends SQLiteRepository<MangaHistory> {
 
     @Nullable
     public MangaHistory find(MangaHeader mangaHeader) {
-        try (Cursor cursor = mStorageHelper.getReadableDatabase().query(
+        try (Cursor cursor = getStorageHelper().getReadableDatabase().query(
                 TABLE_NAME,
                 PROJECTION,
                 "id = ?",
@@ -147,7 +147,7 @@ public class HistoryRepository extends SQLiteRepository<MangaHistory> {
             cv.put(PROJECTION[9], chapter.id);
             cv.put(PROJECTION[10], page.id);
             cv.put(PROJECTION[11], System.currentTimeMillis());
-            return mStorageHelper.getWritableDatabase()
+            return getStorageHelper().getWritableDatabase()
                     .update(TABLE_NAME, cv,
                             "id=?", new String[]{String.valueOf(manga.id)}) > 0;
         } catch (Exception e) {
@@ -156,7 +156,7 @@ public class HistoryRepository extends SQLiteRepository<MangaHistory> {
     }
 
     public short getPreset(MangaDetails manga, short defaultValue) {
-        try (Cursor cursor = mStorageHelper.getReadableDatabase().query(
+        try (Cursor cursor = getStorageHelper().getReadableDatabase().query(
                 TABLE_NAME,
                 new String[]{PROJECTION[12]},
                 "id = ?",
@@ -180,7 +180,7 @@ public class HistoryRepository extends SQLiteRepository<MangaHistory> {
         Cursor cursor = null;
         try {
             JSONArray dump = new JSONArray();
-            cursor = mStorageHelper.getReadableDatabase().query(TABLE_NAME, new String[]{
+            cursor = getStorageHelper().getReadableDatabase().query(TABLE_NAME, new String[]{
                     "id", "name", "summary", "genres", "url", "thumbnail", "provider", "status", "chapter_id", "pageId", "readerPreset", "totalChapters", "rating"
             }, "timestamp > ?", new String[]{String.valueOf(laterThen)}, null, null, null);
             if (cursor.moveToFirst()) {
@@ -217,7 +217,7 @@ public class HistoryRepository extends SQLiteRepository<MangaHistory> {
     }
 
     public boolean inject(JSONArray jsonArray) {
-        SQLiteDatabase database = mStorageHelper.getWritableDatabase();
+        SQLiteDatabase database = getStorageHelper().getWritableDatabase();
         try {
             int len = jsonArray.length();
             database.beginTransaction();
@@ -256,7 +256,7 @@ public class HistoryRepository extends SQLiteRepository<MangaHistory> {
 
     @Override
     public void remove(long[] ids) {
-        final SQLiteDatabase database = mStorageHelper.getWritableDatabase();
+        final SQLiteDatabase database = getStorageHelper().getWritableDatabase();
         database.beginTransaction();
         for (long o : ids) {
             database.delete(TABLE_NAME, "id=?", new String[]{String.valueOf(o)});

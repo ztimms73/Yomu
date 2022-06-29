@@ -1,8 +1,9 @@
-package org.xtimms.yomu.interfaces;
+package org.xtimms.yomu.interfaces
 
-import android.widget.Checkable;
+import android.widget.Checkable
 
-public interface ExtraCheckable extends Checkable {
+interface ExtraCheckable : Checkable {
 
-    void setCheckedAnimated(boolean checked);
+    fun isCheckedAnimated(checked: Boolean)
+
 }
